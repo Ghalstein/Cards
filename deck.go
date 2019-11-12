@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"os"
 	"strings"
+	"time"
 )
 
 type deck []string
@@ -45,8 +46,12 @@ func newDeckFromFile(filename string) deck {
 // shuffles the deck of cards
 // takes the deck working and romizes the roder
 func (d deck) shuffle() {
+
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
 	for i := range d {
-		newPos := rand.Intn(len(d) - 1)
+		newPos := r.Intn(len(d) - 1)
 		d[i], d[newPos] = d[newPos], d[i]
 	}
 }
