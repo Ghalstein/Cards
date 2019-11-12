@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"os"
 	"strings"
 )
@@ -39,4 +40,13 @@ func newDeckFromFile(filename string) deck {
 	s := strings.Split(string(byteslice), ",") // will be a csv file of cards
 
 	return deck(s)
+}
+
+// shuffles the deck of cards
+// takes the deck working and romizes the roder
+func (d deck) shuffle() {
+	for i := range d {
+		newPos := rand.Intn(len(d) - 1)
+		d[i], d[newPos] = d[newPos], d[i]
+	}
 }
